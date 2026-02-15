@@ -4,7 +4,11 @@ import './Home.css'
 
 // Get server URL from environment or use current hostname
 const getSocketServerURL = () => {
-    // In development, use the current hostname instead of localhost
+    // In production, use environment variable; in development, use current hostname
+    if (import.meta.env.VITE_SOCKET_SERVER) {
+        return import.meta.env.VITE_SOCKET_SERVER;
+    }
+    // Fallback for development
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
     return `${protocol}//${hostname}:3000`;
